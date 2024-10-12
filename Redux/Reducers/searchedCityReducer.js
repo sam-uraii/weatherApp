@@ -4,7 +4,7 @@ import {
   UPDATE_SEARCHED_KEYWORD,
   CLEAR_SEARCHED_CITY_REDUCER,
   UPDATE_IS_SEARCH_LOADING,
-} from "../../../constants/ReduxConstants";
+} from "../../Constants/ReduxConstants";
 const initialState = {
   searchedCities: [],
   searchedKeyword: "",

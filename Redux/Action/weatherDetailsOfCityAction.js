@@ -1,8 +1,10 @@
 import {
   UPDATE_SELECTED_CITY,
   UPDATE_WEATHER_DETAILS,
+  UPDATE_WEATHER_FORECAST_DETAILS,
   WEATHER_DETAILS_LOADER,
-} from "../../../constants/ReduxConstants";
+  WEATHER_FORECAST_DETAILS_LOADER,
+} from "../../Constants/ReduxConstants";
 
 export const updateSelectedCity = (cityDetails) => {
   return {
@@ -19,6 +21,18 @@ export const updateWeatherDetails = (weatherDetails) => {
 export const weatherDetailsLoader = (boolValue) => {
   return {
     type: WEATHER_DETAILS_LOADER,
+    boolValue,
+  };
+};
+export const updateWeatherForecastDetails = (weatherForecastDetails) => {
+  return {
+    type: UPDATE_WEATHER_FORECAST_DETAILS,
+    weatherForecastDetails: weatherForecastDetails.forecast.forecastday,
+  };
+};
+export const weatherForecastDetailsLoader = (boolValue) => {
+  return {
+    type: WEATHER_FORECAST_DETAILS_LOADER,
     boolValue,
   };
 };

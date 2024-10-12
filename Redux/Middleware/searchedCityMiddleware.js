@@ -3,7 +3,7 @@ import {
   BASE_URL,
   END_POINT,
   formatBaseUrl,
-} from "../../../constants/APIConstants";
+} from "../../Constants/APIConstants";
 import {
   clearSearchedCityReducer,
   updateIsSearchLoading,

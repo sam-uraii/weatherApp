@@ -1,0 +1,15 @@
+export const FORECAST_DAYS = [
+  { key: "1", value: "1 Days" },
+  { key: "2", value: "2 Days" },
+  { key: "3", value: "3 Days" },
+  { key: "4", value: "4 Days" },
+  { key: "5", value: "5 Days" },
+  { key: "6", value: "6 Days" },
+  { key: "7", value: "7 Days" },
+  { key: "8", value: "8 Days" },
+  { key: "9", value: "9 Days" },
+  { key: "10", value: "10 Days" },
+  { key: "11", value: "11 Days" },
+  { key: "12", value: "12 Days" },
+  { key: "13", value: "13 Days" },
+];

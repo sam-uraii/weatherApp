@@ -2,12 +2,14 @@ import {
   UPDATE_SELECTED_CITY,
   UPDATE_WEATHER_DETAILS,
   WEATHER_DETAILS_LOADER,
-} from "../../../constants/ReduxConstants";
+} from "../../Constants/ReduxConstants";
 
 const initialState = {
   selectedCity: null,
   weatherDetails: {},
   isWeatherDetailsLoading: false,
+  weatherForecastDetails: [],
+  isWeatherForecastDetailsLoading: false,
 };
 const weatherDetailsOfCityReducer = (state = initialState, action) => {
   const reducerObject = {
@@ -22,6 +24,14 @@ const weatherDetailsOfCityReducer = (state = initialState, action) => {
     WEATHER_DETAILS_LOADER: {
       ...state,
       isWeatherDetailsLoading: action.boolValue,
+    },
+    UPDATE_WEATHER_FORECAST_DETAILS: {
+      ...state,
+      weatherForecastDetails: action.weatherForecastDetails,
+    },
+    WEATHER_FORECAST_DETAILS_LOADER: {
+      ...state,
+      isWeatherForecastDetailsLoading: action.boolValue,
     },
   };
 

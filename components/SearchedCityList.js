@@ -8,19 +8,24 @@ import {
   BASE_URL,
   END_POINT,
   formatBaseUrl,
-} from "../constants/APIConstants";
-import { updateSelectedCity } from "../app/Redux/Action/weatherDetailsOfCityAction";
-import { getWeatherDetailsOfCity } from "../app/Redux/Middleware/weatherDetailsOfCityMiddleware";
+} from "../Constants/APIConstants";
+import { updateSelectedCity } from "../Redux/Action/weatherDetailsOfCityAction";
+import {
+  getWeatherDetailsOfCity,
+  getWeatherForecastDetailsOfCity,
+} from "../Redux/Middleware/weatherDetailsOfCityMiddleware";
 
 const SearchedCityList = ({
   searchedCities,
   updateSelectedCity,
   getWeatherDetailsOfCity,
+  getWeatherForecastDetailsOfCity,
 }) => {
   const handleCitySelection = async (item) => {
     console.log(item.name);
     updateSelectedCity(item);
     getWeatherDetailsOfCity();
+    getWeatherForecastDetailsOfCity();
   };
   const CreateListItem = (item) => {
     return (
@@ -99,4 +104,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateSelectedCity,
   getWeatherDetailsOfCity,
+  getWeatherForecastDetailsOfCity,
 })(SearchedCityList);

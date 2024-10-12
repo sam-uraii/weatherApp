@@ -3,7 +3,7 @@ import {
   UPDATE_IS_SEARCH_LOADING,
   UPDATE_SEARCHED_CITIES,
   UPDATE_SEARCHED_KEYWORD,
-} from "../../../constants/ReduxConstants";
+} from "../../Constants/ReduxConstants";
 
 export const updateSearchedKeyword = (keyword) => {
   return {

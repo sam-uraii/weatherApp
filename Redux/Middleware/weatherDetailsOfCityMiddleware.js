@@ -3,10 +3,12 @@ import {
   BASE_URL,
   END_POINT,
   formatBaseUrl,
-} from "../../../constants/APIConstants";
+} from "../../Constants/APIConstants";
 import {
   updateWeatherDetails,
+  updateWeatherForecastDetails,
   weatherDetailsLoader,
+  weatherForecastDetailsLoader,
 } from "../Action/weatherDetailsOfCityAction";
 
 export const getWeatherDetailsOfCity = () => {
@@ -23,5 +25,21 @@ export const getWeatherDetailsOfCity = () => {
       console.log("error", error);
     }
     dispatch(weatherDetailsLoader(false));
+  };
+};
+export const getWeatherForecastDetailsOfCity = () => {
+  return async (dispatch, getState) => {
+    dispatch(weatherForecastDetailsLoader(true));
+    try {
+      selectedCity = getState().weatherDetailsOfCityReducer.selectedCity;
+      const response = await axios({
+        method: "get",
+        url: `${formatBaseUrl(END_POINT["forecast"])}&q=${selectedCity.name}&days=4`,
+      });
+      dispatch(updateWeatherForecastDetails(response.data));
+    } catch (error) {
+      console.log("error", error);
+    }
+    dispatch(weatherForecastDetailsLoader(false));
   };
 };
