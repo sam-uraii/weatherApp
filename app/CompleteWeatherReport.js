@@ -5,7 +5,7 @@ import { resetSelectedDayDetails } from "../Redux/Action/selectedDayForecastDeta
 import CurrentWeatherInfo from "../Components/Weather/CurrentWeatherInfo";
 import TemperatureBox from "../Components/Weather/TemperatureBox";
 import { View } from "react-native";
-import ConditionsBox from "../Components/Weather/ConditionsBox";
+import ConditionsMainBox from "../Components/Weather/ConditionsMainBox";
 
 const CompleteWeatherReport = ({
   weatherForecastDetails,
@@ -25,12 +25,12 @@ const CompleteWeatherReport = ({
         />
       </View>
       <View style={{ flex: 20 }}>
-        {/* <TemperatureBox selectedDayDetails={selectedDayDetails} /> */}
+        <TemperatureBox selectedDayDetails={selectedDayDetails} />
       </View>
-      <View style={{ flex: 40 }}>
-        <ConditionsBox />
+      <View style={{ flex: 45 }}>
+        <ConditionsMainBox selectedDayDetails={selectedDayDetails} />
       </View>
-      <View style={{ flex: 20, backgroundColor: "purple" }}></View>
+      <View style={{ flex: 15, backgroundColor: "purple" }}></View>
     </View>
   );
 };

@@ -36,7 +36,7 @@ export const getWeatherForecastDetailsOfCity = () => {
         getState().weatherDetailsOfCityReducer.numberOfDaysForForecast;
       const response = await axios({
         method: "get",
-        url: `${formatBaseUrl(END_POINT["forecast"])}&q=${selectedCity.name}&days=${numberOfDays}`,
+        url: `${formatBaseUrl(END_POINT["forecast"])}&q=${selectedCity.name}&days=${numberOfDays}&aqi=yes`,
       });
       dispatch(updateWeatherForecastDetails(response.data));
     } catch (error) {
