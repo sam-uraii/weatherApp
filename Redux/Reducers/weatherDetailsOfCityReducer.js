@@ -10,6 +10,7 @@ const initialState = {
   isWeatherDetailsLoading: false,
   weatherForecastDetails: [],
   isWeatherForecastDetailsLoading: false,
+  numberOfDaysForForecast: 3,
 };
 const weatherDetailsOfCityReducer = (state = initialState, action) => {
   const reducerObject = {
@@ -32,6 +33,10 @@ const weatherDetailsOfCityReducer = (state = initialState, action) => {
     WEATHER_FORECAST_DETAILS_LOADER: {
       ...state,
       isWeatherForecastDetailsLoading: action.boolValue,
+    },
+    UPDATE_NUMBER_OF_DAYS_FOR_FORECAST: {
+      ...state,
+      numberOfDaysForForecast: action.numberOfDays,
     },
   };
 

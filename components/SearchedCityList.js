@@ -22,7 +22,6 @@ const SearchedCityList = ({
   getWeatherForecastDetailsOfCity,
 }) => {
   const handleCitySelection = async (item) => {
-    console.log(item.name);
     updateSelectedCity(item);
     getWeatherDetailsOfCity();
     getWeatherForecastDetailsOfCity();

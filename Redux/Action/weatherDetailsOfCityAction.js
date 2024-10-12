@@ -1,4 +1,5 @@
 import {
+  UPDATE_NUMBER_OF_DAYS_FOR_FORECAST,
   UPDATE_SELECTED_CITY,
   UPDATE_WEATHER_DETAILS,
   UPDATE_WEATHER_FORECAST_DETAILS,
@@ -34,5 +35,11 @@ export const weatherForecastDetailsLoader = (boolValue) => {
   return {
     type: WEATHER_FORECAST_DETAILS_LOADER,
     boolValue,
+  };
+};
+export const updateNumberOfDaysForForecast = (numberOfDays) => {
+  return {
+    type: UPDATE_NUMBER_OF_DAYS_FOR_FORECAST,
+    numberOfDays,
   };
 };

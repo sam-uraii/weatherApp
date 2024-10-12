@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Dimensions,
   FlatList,
@@ -10,30 +10,56 @@ import {
 import { Avatar, Icon, ListItem } from "@rneui/themed";
 import { connect } from "react-redux";
 import { dateFormatter } from "../../utils";
-
-const WeatherForecastDaysList = ({ weatherForecastDetails, selectedCity }) => {
+import { Link } from "expo-router";
+import { updateSelectedDayDetails } from "../../Redux/Action/selectedDayForecastDetailsAction";
+const WeatherForecastDaysList = ({
+  weatherForecastDetails,
+  updateSelectedDayDetails,
+  selectedDayIndex,
+}) => {
   const handleCitySelection = async (item) => {
-    // console.log(selectedCity);
-    console.log(item);
+    console.log("");
   };
-  const CreateListItem = (item) => {
+  let flatlistRef = useRef(null);
+  useEffect(() => {
+    if (selectedDayIndex) {
+      setTimeout(() => {
+        flatlistRef.scrollToIndex({
+          animated: true,
+          index: selectedDayIndex,
+          viewOffset: 0,
+          viewPosition: 0.5,
+        });
+      }, 500);
+    }
+  }, []);
+  const CreateListItem = (item, index) => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          handleCitySelection(item);
-        }}
-      >
-        <ListItem bottomDivider>
-          <Avatar
-            rounded
-            source={{ uri: `https:${item.day.condition.icon}` }}
-          />
-          <ListItem.Content>
-            <ListItem.Title>{`${dateFormatter(item.date)}`}</ListItem.Title>
-            <ListItem.Subtitle>{`${item.day.condition.text}, ${item.day.avgtemp_c}°C`}</ListItem.Subtitle>
-          </ListItem.Content>
-        </ListItem>
-      </TouchableOpacity>
+      <Link href="/CompleteWeatherReport" asChild>
+        <TouchableOpacity
+          onPress={() => {
+            updateSelectedDayDetails(item, index);
+          }}
+        >
+          <ListItem
+            bottomDivider
+            containerStyle={{
+              backgroundColor:
+                selectedDayIndex === index ? "rgb(65,117,155)" : "#ffffff",
+              borderRadius: 35,
+            }}
+          >
+            <Avatar
+              rounded
+              source={{ uri: `https:${item.day.condition.icon}` }}
+            />
+            <ListItem.Content>
+              <ListItem.Title>{`${dateFormatter(item.date)}`}</ListItem.Title>
+              <ListItem.Subtitle>{`${item.day.condition.text}, ${item.day.avgtemp_c}°C`}</ListItem.Subtitle>
+            </ListItem.Content>
+          </ListItem>
+        </TouchableOpacity>
+      </Link>
     );
   };
   const itemSeparator = () => (
@@ -44,20 +70,22 @@ const WeatherForecastDaysList = ({ weatherForecastDetails, selectedCity }) => {
     <View style={styles.box}>
       <View>
         <FlatList
+          ref={(ref) => {
+            flatlistRef = ref;
+          }}
           data={weatherForecastDetails}
           renderItem={({ item, index }) => {
-            return CreateListItem(item);
+            return CreateListItem(item, index);
           }}
           horizontal={true}
           ItemSeparatorComponent={itemSeparator}
-          // ListFooterComponent={listFooter}
         ></FlatList>
       </View>
 
       <Icon
         name="swipe"
         type="material"
-        color="#000"
+        color="#71797E"
         size={18}
         style={{
           marginLeft: Dimensions.get("window").width - 35,
@@ -70,12 +98,16 @@ const WeatherForecastDaysList = ({ weatherForecastDetails, selectedCity }) => {
 
 const styles = StyleSheet.create({
   box: {
-    height: "70%",
+    height: "100%",
     width: "100%",
     flexDirection: "column",
   },
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  selectedDayIndex: state.selectedDayForecastDetailsReducer.selectedDayIndex,
+});
 
-export default connect(mapStateToProps, null)(WeatherForecastDaysList);
+export default connect(mapStateToProps, { updateSelectedDayDetails })(
+  WeatherForecastDaysList
+);

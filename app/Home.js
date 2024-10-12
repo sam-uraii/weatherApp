@@ -14,6 +14,8 @@ import CurrentWeatherInfo from "../Components/Weather/CurrentWeatherInfo";
 import WeatherForecastDaysList from "../Components/Weather/WeatherForecastDaysList";
 import DropDown from "../Components/DropDown";
 import { FORECAST_DAYS } from "../Constants/DropdownConstants";
+import { updateNumberOfDaysForForecast } from "../Redux/Action/weatherDetailsOfCityAction";
+import { getWeatherForecastDetailsOfCity } from "../Redux/Middleware/weatherDetailsOfCityMiddleware";
 const Home = ({
   fetchSearchedCities,
   updateSearchedKeyword,
@@ -26,13 +28,21 @@ const Home = ({
   isWeatherDetailsLoading,
   weatherForecastDetails,
   isWeatherForecastDetailsLoading,
+  updateNumberOfDaysForForecast,
+  numberOfDaysForForecast,
+  getWeatherForecastDetailsOfCity,
 }) => {
   const [areWeatherDetailsVisible, setAreWeatherDetailsVisible] =
     useState(false);
   const [isSearchedCityListVisible, setIsSearchedCityListVisible] =
     useState(false);
-  const [howManyForecastDays, setHowManyForecastDays] = useState(4);
   let inputRef = useRef(null);
+  useEffect(() => {
+    console.log("numberOfDaysForForecast", numberOfDaysForForecast);
+    if (selectedCity) {
+      getWeatherForecastDetailsOfCity();
+    }
+  }, [numberOfDaysForForecast]);
   const updateSearch = async (keyword) => {
     updateSearchedKeyword(keyword);
     fetchSearchedCities();
@@ -62,6 +72,7 @@ const Home = ({
         ref={(search) => {
           inputRef = search;
         }}
+        inputContainerStyle={{ height: 40 }}
         onFocus={() => onFocus()}
         placeholder="City Name..."
         onChangeText={updateSearch}
@@ -76,28 +87,30 @@ const Home = ({
       />
       {isSearchedCityListVisible && <SearchedCityList />}
       {isWeatherDetailsLoading ? (
-        <ActivityIndicator size={30} />
+        <ActivityIndicator size={35} color={"black"} />
       ) : (
         areWeatherDetailsVisible && (
-          <CurrentWeatherInfo weatherDetails={weatherDetails} />
+          <>
+            <CurrentWeatherInfo weatherDetails={weatherDetails} />
+            <DropDown
+              updateNumberOfDaysForForecast={updateNumberOfDaysForForecast}
+              data={FORECAST_DAYS}
+            />
+          </>
         )
       )}
 
       {isWeatherForecastDetailsLoading ? (
-        <ActivityIndicator size={30} style={{ top: 200 }} />
+        <ActivityIndicator
+          size={35}
+          style={{ top: isWeatherDetailsLoading ? 250 : 0 }}
+          color={"black"}
+        />
       ) : (
         areWeatherDetailsVisible && (
-          <>
-            <DropDown
-              howManyForecastDays={howManyForecastDays}
-              setHowManyForecastDays={setHowManyForecastDays}
-              data={FORECAST_DAYS}
-            />
-            <WeatherForecastDaysList
-              selectedCity={selectedCity}
-              weatherForecastDetails={weatherForecastDetails}
-            />
-          </>
+          <WeatherForecastDaysList
+            weatherForecastDetails={weatherForecastDetails}
+          />
         )
       )}
     </View>
@@ -116,33 +129,14 @@ const mapStateToProps = (state) => ({
     state.weatherDetailsOfCityReducer.weatherForecastDetails,
   isWeatherForecastDetailsLoading:
     state.weatherDetailsOfCityReducer.isWeatherForecastDetailsLoading,
+  numberOfDaysForForecast:
+    state.weatherDetailsOfCityReducer.numberOfDaysForForecast,
 });
 
 export default connect(mapStateToProps, {
   fetchSearchedCities,
   updateSearchedKeyword,
   clearSearchedCityReducer,
+  updateNumberOfDaysForForecast,
+  getWeatherForecastDetailsOfCity,
 })(Home);
-{
-  /* <>
-<Text>{`${weatherDetails.location.region},${weatherDetails.location.name}, ${weatherDetails.location.country},`}</Text>
-<Text>{`Latitude: ${weatherDetails.location.lat}             longitude: ${weatherDetails.location.lon},                    Time: ${weatherDetails.location.localtime},`}</Text>
-<Text>---------------------</Text>
-<Text>{`last_updated :${weatherDetails.current.last_updated},`}</Text>
-<Text>{`Temp :${weatherDetails.current.temp_c}C or ${weatherDetails.current.temp_f}F`}</Text>
-<Text>{`Feels like :${weatherDetails.current.feelslike_c}C or ${weatherDetails.current.feelslike_f}F`}</Text>
-<Text>{`Condition :${weatherDetails.current.condition.text},`}</Text>
-<Text>{`Wind :${weatherDetails.current.wind_mph}mph or ${weatherDetails.current.wind_kph} kph,`}</Text>
-<Text>{`Wind Degree :${weatherDetails.current.wind_degree},`}</Text>
-<Text>{`Wind Direction :${weatherDetails.current.wind_dir},`}</Text>
-<Text>{`Pressure :${weatherDetails.current.pressure_mb},`}</Text>
-<Text>{`Precipitate :${weatherDetails.current.precip_mm},`}</Text>
-<Text>{`Humind :${weatherDetails.current.humidity},`}</Text>
-<Text>{`Cloud :${weatherDetails.current.cloud},`}</Text>
-<Text>{`Wind Chill :${weatherDetails.current.windchill_c} or ${weatherDetails.current.windchill_f},`}</Text>
-<Text>{`Heat Index :${weatherDetails.current.heatindex_c} or ${weatherDetails.current.heatindex_f},`}</Text>
-<Text>{`Dew  :${weatherDetails.current.dewpoint_c} or ${weatherDetails.current.dewpoint_f},`}</Text>
-<Text>{`UV :${weatherDetails.current.uv},`}</Text>
-<Text>{`Gust  :${weatherDetails.current.gust_mph}mph or ${weatherDetails.current.gust_kph}kph,`}</Text>
-</> */
-}

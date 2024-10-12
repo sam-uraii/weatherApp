@@ -36,6 +36,10 @@ export default function RootLayout() {
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="Home" options={{ headerShown: true }} />
+          <Stack.Screen
+            name="CompleteWeatherReport"
+            options={{ headerShown: true }}
+          />
         </Stack>
       </ThemeProvider>
     </Provider>

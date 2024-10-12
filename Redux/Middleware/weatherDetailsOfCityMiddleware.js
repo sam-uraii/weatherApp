@@ -31,10 +31,12 @@ export const getWeatherForecastDetailsOfCity = () => {
   return async (dispatch, getState) => {
     dispatch(weatherForecastDetailsLoader(true));
     try {
-      selectedCity = getState().weatherDetailsOfCityReducer.selectedCity;
+      const selectedCity = getState().weatherDetailsOfCityReducer.selectedCity;
+      const numberOfDays =
+        getState().weatherDetailsOfCityReducer.numberOfDaysForForecast;
       const response = await axios({
         method: "get",
-        url: `${formatBaseUrl(END_POINT["forecast"])}&q=${selectedCity.name}&days=4`,
+        url: `${formatBaseUrl(END_POINT["forecast"])}&q=${selectedCity.name}&days=${numberOfDays}`,
       });
       dispatch(updateWeatherForecastDetails(response.data));
     } catch (error) {

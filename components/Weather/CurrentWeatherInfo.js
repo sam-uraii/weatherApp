@@ -1,34 +1,59 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { dateFormatter } from "../../utils";
 
 const CurrentWeatherInfo = ({ weatherDetails }) => {
   return (
     <View style={styles.currentView}>
-      <Text
-        style={styles.timezone}
-      >{`${weatherDetails.location.localtime.split(" ")[0]}, ${weatherDetails.location.localtime.split(" ")[1]}`}</Text>
-      <View style={styles.mainInfoContainer}>
-        <View style={styles.currentTempView}>
-          {weatherDetails.current && (
-            <Image
-              style={styles.weatherIcon}
-              source={{
-                uri: `https:${weatherDetails.current.condition.icon}`,
-              }}
-              resizeMode={"contain"}
-            />
-          )}
-          <Text style={styles.currentDegrees}>
-            {Math.round(
-              weatherDetails.current && weatherDetails.current.temp_c
-            )}
-            °C
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignContent: "space-around",
+          alignItems: "center",
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <Text style={styles.currentRegionText}>
+            {`${weatherDetails && weatherDetails.location && weatherDetails.location.name}`}
+          </Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 20,
+            }}
+          >
+            {`${weatherDetails && weatherDetails.location && weatherDetails.location.region}`}
           </Text>
         </View>
-        <Text style={styles.description}>
-          {weatherDetails.current && weatherDetails.current.condition.text}
-        </Text>
+        <View style={styles.mainInfoContainer}>
+          <View style={styles.currentTempView}>
+            {weatherDetails.current && (
+              <Image
+                style={styles.weatherIcon}
+                source={{
+                  uri: `https:${weatherDetails.current.condition.icon}`,
+                }}
+                resizeMode={"contain"}
+              />
+            )}
+            <Text style={styles.currentDegrees}>
+              {Math.round(
+                weatherDetails.current && weatherDetails.current.temp_c
+              )}
+              °C
+            </Text>
+          </View>
+          <Text style={styles.description}>
+            {weatherDetails.current && weatherDetails.current.condition.text}
+          </Text>
+        </View>
       </View>
+
+      <Text
+        style={styles.timezone}
+      >{`${dateFormatter(weatherDetails.location.localtime.split(" ")[0])} - ${weatherDetails.location.localtime.split(" ")[1]}`}</Text>
+
       <View style={styles.secondaryInfoContainer}>
         <View style={styles.row}>
           <View style={styles.detailsBox}>
@@ -89,6 +114,13 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "rgb(65,117,155)",
   },
+  currentRegionText: {
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 10,
+    fontSize: 40,
+  },
   currentTempView: {
     display: "flex",
     flexDirection: "row",
@@ -98,6 +130,7 @@ const styles = StyleSheet.create({
   mainInfoContainer: {
     display: "flex",
     alignItems: "center",
+    flex: 1,
   },
   description: {
     color: "white",
@@ -131,7 +164,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
-    fontSize: 60,
+    fontSize: 50,
   },
   row: {
     display: "flex",
