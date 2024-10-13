@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Avatar, ListItem } from "@rneui/themed";
-import { connect } from "react-redux";
-import axios from "axios";
+import React from "react";
 import {
-  API_KEY,
-  BASE_URL,
-  END_POINT,
-  formatBaseUrl,
-} from "../Constants/APIConstants";
+  FlatList,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { ListItem } from "@rneui/themed";
+import { connect } from "react-redux";
+
 import { updateSelectedCity } from "../Redux/Action/weatherDetailsOfCityAction";
 import {
   getWeatherDetailsOfCity,
@@ -28,48 +27,18 @@ const SearchedCityList = ({
   };
   const CreateListItem = (item) => {
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={() => {
           handleCitySelection(item);
         }}
       >
         <ListItem bottomDivider>
-          <Avatar
-            rounded
-            source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
-          />
           <ListItem.Content>
             <ListItem.Title>{`${item.name}`}</ListItem.Title>
             <ListItem.Subtitle>{`${item.region}, ${item.country}`}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
-        {/* <ListItem bottomDivider>
-        <Avatar
-          rounded
-          icon={{
-            name: "person-outline",
-            type: "material",
-            size: 26,
-          }}
-          containerStyle={{ backgroundColor: "#c2c2c2" }}
-        />
-        <ListItem.Content>
-          <ListItem.Title>Alba King</ListItem.Title>
-          <ListItem.Subtitle>Vice President</ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem>
-      <ListItem>
-        <Avatar
-          rounded
-          title="A"
-          containerStyle={{ backgroundColor: "grey" }}
-        />
-        <ListItem.Content>
-          <ListItem.Title>Adam Eva</ListItem.Title>
-          <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem> */}
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     );
   };
 
@@ -90,9 +59,11 @@ const styles = StyleSheet.create({
   box: {
     height: "70%",
     width: "100%",
-    // backgroundColor: "pink",
     borderWidth: 2,
     borderColor: "black",
+    position: "absolute",
+    zIndex: 11111,
+    marginTop: 50,
   },
 });
 

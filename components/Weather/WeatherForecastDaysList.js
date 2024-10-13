@@ -17,7 +17,6 @@ const WeatherForecastDaysList = ({
   updateSelectedDayDetails,
   selectedDayIndex,
 }) => {
-  const handleCitySelection = async (item) => {};
   let flatlistRef = useRef(null);
   useEffect(() => {
     if (selectedDayIndex) {
@@ -63,7 +62,6 @@ const WeatherForecastDaysList = ({
   const itemSeparator = () => (
     <View style={{ width: 5, height: "100%" }}></View>
   );
-
   return (
     <View style={styles.box}>
       <View>

@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 
 import { SelectList } from "react-native-dropdown-select-list";
 
-export default function DropDown({ updateNumberOfDaysForForecast, data }) {
+export default function DropDown({
+  updateNumberOfDaysForForecast,
+  data,
+  numberOfDaysForForecast,
+}) {
   return (
     <SelectList
       boxStyles={{ margin: 5, backgroundColor: "#fff" }}
@@ -12,7 +16,7 @@ export default function DropDown({ updateNumberOfDaysForForecast, data }) {
       }}
       data={data}
       save="key"
-      defaultOption={data[2]}
+      defaultOption={data[numberOfDaysForForecast - 1]}
     />
   );
 }

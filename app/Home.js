@@ -1,5 +1,5 @@
 import { ActivityIndicator, Text, View, Appearance } from "react-native";
-import { SearchBar } from "@rneui/themed";
+import { Overlay, SearchBar } from "@rneui/themed";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../Constants/APIConstants";
@@ -47,11 +47,7 @@ const Home = ({
     updateSearchedKeyword(keyword);
     fetchSearchedCities();
   };
-  const onFocus = () => {
-    if (searchedCities.length) {
-      setIsSearchedCityListVisible(true);
-    }
-  };
+
   useEffect(() => {
     if (selectedCity) {
       inputRef.blur();
@@ -66,6 +62,11 @@ const Home = ({
       setIsSearchedCityListVisible(false);
     }
   }, [searchedCities]);
+  const onFocus = () => {
+    if (searchedCities.length) {
+      setIsSearchedCityListVisible(true);
+    }
+  };
   return (
     <View style={{ backgroundColor: defaultBackgroundColor, flex: 1 }}>
       <SearchBar
@@ -85,6 +86,7 @@ const Home = ({
         round={true}
         showLoading={isSearchLoading}
       />
+
       {isSearchedCityListVisible && <SearchedCityList />}
       {isWeatherDetailsLoading ? (
         <ActivityIndicator
@@ -98,6 +100,7 @@ const Home = ({
             <DropDown
               updateNumberOfDaysForForecast={updateNumberOfDaysForForecast}
               data={FORECAST_DAYS}
+              numberOfDaysForForecast={numberOfDaysForForecast}
             />
           </>
         )
