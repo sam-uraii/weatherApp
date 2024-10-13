@@ -17,9 +17,7 @@ const WeatherForecastDaysList = ({
   updateSelectedDayDetails,
   selectedDayIndex,
 }) => {
-  const handleCitySelection = async (item) => {
-    console.log("");
-  };
+  const handleCitySelection = async (item) => {};
   let flatlistRef = useRef(null);
   useEffect(() => {
     if (selectedDayIndex) {
@@ -55,7 +53,7 @@ const WeatherForecastDaysList = ({
             />
             <ListItem.Content>
               <ListItem.Title>{`${dateFormatter(item.date)}`}</ListItem.Title>
-              <ListItem.Subtitle>{`${item.day.condition.text}, ${item.day.avgtemp_c}°C`}</ListItem.Subtitle>
+              <ListItem.Subtitle>{`${item.day.condition.text}, ${item.day.mintemp_c}/${item.day.maxtemp_c}°C`}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
         </TouchableOpacity>
@@ -101,6 +99,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     flexDirection: "column",
+    marginTop: 5,
   },
 });
 

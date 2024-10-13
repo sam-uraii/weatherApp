@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Text, View, Appearance } from "react-native";
 import { SearchBar } from "@rneui/themed";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -16,6 +16,7 @@ import DropDown from "../Components/DropDown";
 import { FORECAST_DAYS } from "../Constants/DropdownConstants";
 import { updateNumberOfDaysForForecast } from "../Redux/Action/weatherDetailsOfCityAction";
 import { getWeatherForecastDetailsOfCity } from "../Redux/Middleware/weatherDetailsOfCityMiddleware";
+import { defaultBackgroundColor } from "../Constants/Colors";
 const Home = ({
   fetchSearchedCities,
   updateSearchedKeyword,
@@ -38,7 +39,6 @@ const Home = ({
     useState(false);
   let inputRef = useRef(null);
   useEffect(() => {
-    console.log("numberOfDaysForForecast", numberOfDaysForForecast);
     if (selectedCity) {
       getWeatherForecastDetailsOfCity();
     }
@@ -67,7 +67,7 @@ const Home = ({
     }
   }, [searchedCities]);
   return (
-    <View>
+    <View style={{ backgroundColor: defaultBackgroundColor, flex: 1 }}>
       <SearchBar
         ref={(search) => {
           inputRef = search;
@@ -87,7 +87,10 @@ const Home = ({
       />
       {isSearchedCityListVisible && <SearchedCityList />}
       {isWeatherDetailsLoading ? (
-        <ActivityIndicator size={35} color={"black"} />
+        <ActivityIndicator
+          size={35}
+          color={Appearance.getColorScheme() === "dark" ? "white" : "black"}
+        />
       ) : (
         areWeatherDetailsVisible && (
           <>
@@ -104,7 +107,7 @@ const Home = ({
         <ActivityIndicator
           size={35}
           style={{ top: isWeatherDetailsLoading ? 250 : 0 }}
-          color={"black"}
+          color={Appearance.getColorScheme() === "dark" ? "white" : "black"}
         />
       ) : (
         areWeatherDetailsVisible && (

@@ -2,12 +2,14 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { dateFormatter } from "../../utils";
 import { Icon } from "@rneui/themed";
-
+import { defaultBackgroundColor } from "../../Constants/Colors";
 export default function TemperatureBox({ selectedDayDetails }) {
   return (
     <View style={styles.mainInfoContainer}>
       <Text style={styles.dateText}>
-        {dateFormatter(selectedDayDetails.date)}
+        {selectedDayDetails &&
+          selectedDayDetails.date &&
+          dateFormatter(selectedDayDetails.date)}
       </Text>
       <View
         style={{
@@ -42,12 +44,13 @@ export default function TemperatureBox({ selectedDayDetails }) {
     </View>
   );
 }
+//
 const styles = StyleSheet.create({
   mainInfoContainer: {
     display: "flex",
     flex: 1,
     width: "100%",
-    backgroundColor: "#424F6F",
+    backgroundColor: defaultBackgroundColor,
     justifyContent: "center",
   },
   dateText: {

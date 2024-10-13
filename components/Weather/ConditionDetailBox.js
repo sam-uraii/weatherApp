@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { dateFormatter } from "../../utils";
 import { Icon } from "@rneui/themed";
-
+import { defaultBackgroundColor } from "../../Constants/Colors";
 const ConditionDetailBox = ({
   label,
   detailOne,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     width: "100%",
-    backgroundColor: "#424F6F",
+    backgroundColor: defaultBackgroundColor,
     justifyContent: "center",
   },
   boxStyle: {

@@ -6,7 +6,8 @@ import CurrentWeatherInfo from "../Components/Weather/CurrentWeatherInfo";
 import TemperatureBox from "../Components/Weather/TemperatureBox";
 import { View } from "react-native";
 import ConditionsMainBox from "../Components/Weather/ConditionsMainBox";
-
+import HourlyForecastList from "../Components/Weather/HourlyForecastList";
+import { defaultBackgroundColor } from "../Constants/Colors";
 const CompleteWeatherReport = ({
   weatherForecastDetails,
   resetSelectedDayDetails,
@@ -19,7 +20,13 @@ const CompleteWeatherReport = ({
   }, []);
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 20, marginTop: 6 }}>
+      <View
+        style={{
+          flex: 20,
+          marginTop: 0,
+          backgroundColor: defaultBackgroundColor,
+        }}
+      >
         <WeatherForecastDaysList
           weatherForecastDetails={weatherForecastDetails}
         />
@@ -30,7 +37,9 @@ const CompleteWeatherReport = ({
       <View style={{ flex: 45 }}>
         <ConditionsMainBox selectedDayDetails={selectedDayDetails} />
       </View>
-      <View style={{ flex: 15, backgroundColor: "purple" }}></View>
+      <View style={{ flex: 15, backgroundColor: defaultBackgroundColor }}>
+        <HourlyForecastList hourDetails={selectedDayDetails.hour} />
+      </View>
     </View>
   );
 };

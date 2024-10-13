@@ -3,9 +3,8 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { dateFormatter } from "../../utils";
 import { Icon } from "@rneui/themed";
 import ConditionDetailBox from "./ConditionDetailBox";
-
+import { defaultBackgroundColor } from "../../Constants/Colors";
 export default function ConditionsMainBox({ selectedDayDetails }) {
-  console.log(selectedDayDetails.day);
   return (
     <View style={styles.mainInfoContainer}>
       <View>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     width: "100%",
-    backgroundColor: "#424F6F",
+    backgroundColor: defaultBackgroundColor,
     justifyContent: "center",
   },
   boxStyle: {
