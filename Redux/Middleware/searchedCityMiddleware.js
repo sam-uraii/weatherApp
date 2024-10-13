@@ -20,8 +20,6 @@ export const fetchSearchedCities = () => {
           method: "get",
           url: `${formatBaseUrl(END_POINT["search"])}&q=${searchedKeyword}`,
         });
-        console.log(response.data);
-
         dispatch(updateSearchedCities(response.data));
       } else {
         dispatch(clearSearchedCityReducer());

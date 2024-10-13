@@ -11,12 +11,7 @@ export default function TemperatureBox({ selectedDayDetails }) {
           selectedDayDetails.date &&
           dateFormatter(selectedDayDetails.date)}
       </Text>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.temperatureWrapper}>
         <Icon
           name="straight"
           type="material"
@@ -58,6 +53,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textTransform: "capitalize",
     marginLeft: 5,
+  },
+  temperatureWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   description: {
     color: "white",

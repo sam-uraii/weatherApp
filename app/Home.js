@@ -1,8 +1,5 @@
-import { ActivityIndicator, Text, View, Appearance } from "react-native";
-import { Overlay, SearchBar } from "@rneui/themed";
+import { ActivityIndicator, View, Appearance, StyleSheet } from "react-native";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { BASE_URL } from "../Constants/APIConstants";
 import SearchedCityList from "../Components/SearchedCityList";
 import { connect } from "react-redux";
 import { fetchSearchedCities } from "../Redux/Middleware/searchedCityMiddleware";
@@ -17,6 +14,7 @@ import { FORECAST_DAYS } from "../Constants/DropdownConstants";
 import { updateNumberOfDaysForForecast } from "../Redux/Action/weatherDetailsOfCityAction";
 import { getWeatherForecastDetailsOfCity } from "../Redux/Middleware/weatherDetailsOfCityMiddleware";
 import { defaultBackgroundColor } from "../Constants/Colors";
+import SearchBox from "../Components/SearchBox";
 const Home = ({
   fetchSearchedCities,
   updateSearchedKeyword,
@@ -43,11 +41,6 @@ const Home = ({
       getWeatherForecastDetailsOfCity();
     }
   }, [numberOfDaysForForecast]);
-  const updateSearch = async (keyword) => {
-    updateSearchedKeyword(keyword);
-    fetchSearchedCities();
-  };
-
   useEffect(() => {
     if (selectedCity) {
       inputRef.blur();
@@ -62,29 +55,32 @@ const Home = ({
       setIsSearchedCityListVisible(false);
     }
   }, [searchedCities]);
+
+  const updateSearch = async (keyword) => {
+    updateSearchedKeyword(keyword);
+    fetchSearchedCities();
+  };
+
   const onFocus = () => {
     if (searchedCities.length) {
       setIsSearchedCityListVisible(true);
     }
   };
+  const onClearCallBack = () => {
+    clearSearchedCityReducer();
+    inputRef.focus();
+  };
   return (
-    <View style={{ backgroundColor: defaultBackgroundColor, flex: 1 }}>
-      <SearchBar
-        ref={(search) => {
-          inputRef = search;
+    <View style={styles.mainWrapperBox}>
+      <SearchBox
+        updateSearch={updateSearch}
+        searchedKeyword={searchedKeyword}
+        isSearchLoading={isSearchLoading}
+        setInputRef={(searchRef) => {
+          inputRef = searchRef;
         }}
-        inputContainerStyle={{ height: 40 }}
-        onFocus={() => onFocus()}
-        placeholder="City Name..."
-        onChangeText={updateSearch}
-        value={searchedKeyword}
-        lightTheme={true}
-        onClear={() => {
-          clearSearchedCityReducer();
-          inputRef.focus();
-        }}
-        round={true}
-        showLoading={isSearchLoading}
+        onFocus={onFocus}
+        onClearCallBack={onClearCallBack}
       />
 
       {isSearchedCityListVisible && <SearchedCityList />}
@@ -146,3 +142,10 @@ export default connect(mapStateToProps, {
   updateNumberOfDaysForForecast,
   getWeatherForecastDetailsOfCity,
 })(Home);
+
+const styles = StyleSheet.create({
+  mainWrapperBox: {
+    backgroundColor: defaultBackgroundColor,
+    flex: 1,
+  },
+});

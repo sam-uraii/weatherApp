@@ -1,14 +1,12 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { dateFormatter } from "../../utils";
-import { Icon } from "@rneui/themed";
+import { StyleSheet, View } from "react-native";
 import ConditionDetailBox from "./ConditionDetailBox";
 import { defaultBackgroundColor } from "../../Constants/Colors";
 export default function ConditionsMainBox({ selectedDayDetails }) {
   return (
     <View style={styles.mainInfoContainer}>
       <View>
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+        <View style={styles.windAndHumidCondWrapper}>
           <ConditionDetailBox
             label={"Wind"}
             detailOne={{
@@ -27,13 +25,7 @@ export default function ConditionsMainBox({ selectedDayDetails }) {
             iconType={"material-community"}
           />
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: 5,
-          }}
-        >
+        <View style={styles.UVAndAQICondWrapper}>
           <ConditionDetailBox
             label={"UV"}
             detailOne={{
@@ -96,5 +88,14 @@ const styles = StyleSheet.create({
   weatherIcon: {
     width: 50,
     height: 50,
+  },
+  windAndHumidCondWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  UVAndAQICondWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 5,
   },
 });

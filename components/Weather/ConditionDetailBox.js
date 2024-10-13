@@ -1,6 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { dateFormatter } from "../../utils";
+import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "@rneui/themed";
 import { defaultBackgroundColor } from "../../Constants/Colors";
 const ConditionDetailBox = ({
@@ -30,7 +29,7 @@ const ConditionDetailBox = ({
           )}
         </View>
       </View>
-      <View style={{ flex: 1, justifyContent: "center" }}>
+      <View style={styles.iconWrapper}>
         <Icon
           name={iconName}
           type={iconType ? iconType : "material"}
@@ -78,5 +77,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  iconWrapper: { flex: 1, justifyContent: "center" },
 });
 export default ConditionDetailBox;

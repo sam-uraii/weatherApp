@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import WeatherForecastDaysList from "../Components/Weather/WeatherForecastDaysList";
 import { resetSelectedDayDetails } from "../Redux/Action/selectedDayForecastDetailsAction";
-import CurrentWeatherInfo from "../Components/Weather/CurrentWeatherInfo";
 import TemperatureBox from "../Components/Weather/TemperatureBox";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ConditionsMainBox from "../Components/Weather/ConditionsMainBox";
 import HourlyForecastList from "../Components/Weather/HourlyForecastList";
 import { defaultBackgroundColor } from "../Constants/Colors";
@@ -19,25 +18,19 @@ const CompleteWeatherReport = ({
     };
   }, []);
   return (
-    <View style={{ flex: 1 }}>
-      <View
-        style={{
-          flex: 20,
-          marginTop: 0,
-          backgroundColor: defaultBackgroundColor,
-        }}
-      >
+    <View style={styles.mainWrapperBox}>
+      <View style={styles.weatherForecastListWrapper}>
         <WeatherForecastDaysList
           weatherForecastDetails={weatherForecastDetails}
         />
       </View>
-      <View style={{ flex: 20 }}>
+      <View style={styles.temperatureBoxWrapper}>
         <TemperatureBox selectedDayDetails={selectedDayDetails} />
       </View>
-      <View style={{ flex: 45 }}>
+      <View style={styles.conditionsBoxWrapper}>
         <ConditionsMainBox selectedDayDetails={selectedDayDetails} />
       </View>
-      <View style={{ flex: 15, backgroundColor: defaultBackgroundColor }}>
+      <View style={styles.hourlyForecastListWrapper}>
         <HourlyForecastList hourDetails={selectedDayDetails.hour} />
       </View>
     </View>
@@ -54,3 +47,18 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { resetSelectedDayDetails })(
   CompleteWeatherReport
 );
+
+const styles = StyleSheet.create({
+  mainWrapperBox: { flex: 1 },
+  weatherForecastListWrapper: {
+    flex: 20,
+    marginTop: 0,
+    backgroundColor: defaultBackgroundColor,
+  },
+  temperatureBoxWrapper: { flex: 20 },
+  conditionsBoxWrapper: { flex: 45 },
+  hourlyForecastListWrapper: {
+    flex: 15,
+    backgroundColor: defaultBackgroundColor,
+  },
+});

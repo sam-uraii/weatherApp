@@ -46,7 +46,7 @@ export default function RootLayout() {
             <Stack.Screen name="Home" options={{ headerShown: true }} />
             <Stack.Screen
               name="CompleteWeatherReport"
-              options={{ headerShown: true }}
+              options={{ headerShown: true, title: "Forecast" }}
             />
           </Stack>
         </ThemeProvider>

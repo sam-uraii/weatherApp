@@ -5,14 +5,7 @@ import { dateFormatter } from "../../utils";
 const CurrentWeatherInfo = ({ weatherDetails }) => {
   return (
     <View style={styles.currentView}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignContent: "space-around",
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.regionTempTimeWrapper}>
         <View style={{ flex: 1 }}>
           <Text style={styles.currentRegionText}>
             {`${weatherDetails && weatherDetails.location && weatherDetails.location.name}`}
@@ -113,6 +106,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     backgroundColor: "rgb(65,117,155)",
+  },
+  regionTempTimeWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignContent: "space-around",
+    alignItems: "center",
   },
   currentRegionText: {
     color: "white",

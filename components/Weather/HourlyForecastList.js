@@ -1,26 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Avatar, Icon, ListItem } from "@rneui/themed";
-import { connect } from "react-redux";
+import { Avatar, ListItem } from "@rneui/themed";
 const HourlyForecastList = ({ hourDetails }) => {
   const CreateListItem = (item, index) => {
     return (
-      <ListItem
-        bottomDivider
-        containerStyle={{
-          backgroundColor: "#fff",
-          borderRadius: 10,
-          height: 80,
-          width: 70,
-          marginLeft: 10,
-        }}
-      >
+      <ListItem bottomDivider containerStyle={styles.containerStyle}>
         <ListItem.Content>
-          <Text style={{ fontSize: 14 }}>{`${item.time.split(" ")[1]}`}</Text>
+          <Text style={styles.timeText}>{`${item.time.split(" ")[1]}`}</Text>
           <Avatar rounded source={{ uri: `https:${item.condition.icon}` }} />
-          <Text
-            style={{ fontSize: 13, fontWeight: 500 }}
-          >{`${item.temp_c}°c`}</Text>
+          <Text style={styles.tempText}>{`${item.temp_c}°c`}</Text>
         </ListItem.Content>
       </ListItem>
     );
@@ -51,6 +39,15 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column",
   },
+  containerStyle: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    height: 80,
+    width: 70,
+    marginLeft: 10,
+  },
+  timeText: { fontSize: 14 },
+  tempText: { fontSize: 13, fontWeight: "500" },
 });
 
 export default HourlyForecastList;

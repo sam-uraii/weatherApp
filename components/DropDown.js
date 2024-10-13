@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { SelectList } from "react-native-dropdown-select-list";
 
