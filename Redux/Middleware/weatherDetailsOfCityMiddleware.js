@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  BASE_URL,
-  END_POINT,
-  formatBaseUrl,
-} from "../../Constants/APIConstants";
+import { END_POINT, formatBaseUrl } from "../../Constants/APIConstants";
 import {
   updateWeatherDetails,
   updateWeatherForecastDetails,

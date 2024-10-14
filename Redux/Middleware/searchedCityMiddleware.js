@@ -25,7 +25,7 @@ export const fetchSearchedCities = () => {
         dispatch(clearSearchedCityReducer());
       }
     } catch (error) {
-      console.log("error", error);
+      console.log(error.message);
     }
     dispatch(updateIsSearchLoading(false));
   };

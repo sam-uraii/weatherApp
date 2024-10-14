@@ -1,14 +1,14 @@
 import { SearchBar } from "@rneui/themed";
 import React from "react";
 
-export default function SearchBox({
+const SearchBox = ({
   updateSearch,
   searchedKeyword,
   onClearCallBack,
   setInputRef,
   isSearchLoading,
   onFocus,
-}) {
+}) => {
   return (
     <SearchBar
       ref={setInputRef}
@@ -23,4 +23,5 @@ export default function SearchBox({
       showLoading={isSearchLoading}
     />
   );
-}
+};
+export default SearchBox;

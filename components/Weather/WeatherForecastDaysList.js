@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Avatar, Icon, ListItem } from "@rneui/themed";
+import { Avatar, Icon, Image, ListItem } from "@rneui/themed";
 import { connect } from "react-redux";
 import { dateFormatter } from "../../utils";
 import { Link } from "expo-router";
@@ -45,10 +45,16 @@ const WeatherForecastDaysList = ({
               borderRadius: 35,
             }}
           >
-            <Avatar
+            {/* <Avatar
               rounded
               source={{ uri: `https:${item.day.condition.icon}` }}
-            />
+            /> */}
+            <Image
+              transition={true}
+              transitionDuration={5000}
+              containerStyle={{ width: 50, height: 50 }}
+              source={{ uri: `https:${item.day.condition.icon}` }}
+            ></Image>
             <ListItem.Content>
               <ListItem.Title>{`${dateFormatter(item.date)}`}</ListItem.Title>
               <ListItem.Subtitle>{`${item.day.condition.text}, ${item.day.mintemp_c}/${item.day.maxtemp_c}°C`}</ListItem.Subtitle>

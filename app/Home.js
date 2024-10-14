@@ -70,15 +70,16 @@ const Home = ({
     clearSearchedCityReducer();
     inputRef.focus();
   };
+  const setInputRef = (searchRef) => {
+    inputRef = searchRef;
+  };
   return (
     <View style={styles.mainWrapperBox}>
       <SearchBox
         updateSearch={updateSearch}
         searchedKeyword={searchedKeyword}
         isSearchLoading={isSearchLoading}
-        setInputRef={(searchRef) => {
-          inputRef = searchRef;
-        }}
+        setInputRef={setInputRef}
         onFocus={onFocus}
         onClearCallBack={onClearCallBack}
       />

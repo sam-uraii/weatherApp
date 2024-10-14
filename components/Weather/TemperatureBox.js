@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { dateFormatter } from "../../utils";
-import { Icon } from "@rneui/themed";
+import { Icon, Image } from "@rneui/themed";
 import { defaultBackgroundColor } from "../../Constants/Colors";
+import WeatherImage from "../AnimatedComponent/WeatherImage";
 export default function TemperatureBox({ selectedDayDetails }) {
   return (
     <View style={styles.mainInfoContainer}>
@@ -25,12 +26,23 @@ export default function TemperatureBox({ selectedDayDetails }) {
           style={styles.currentDegrees}
         >{`${selectedDayDetails.day.mintemp_c}°/${selectedDayDetails.day.maxtemp_c}°`}</Text>
         <Icon name="straight" type="material" color="#fff" size={18} />
-        <Image
+        {/* <Image
           style={styles.weatherIcon}
           source={{
             uri: `https:${selectedDayDetails.day.condition.icon}`,
           }}
           resizeMode={"contain"}
+        /> */}
+        {/* <Image
+          transition={true}
+          transitionDuration={5000}
+          containerStyle={styles.weatherIcon}
+          source={{
+            uri: `https:${selectedDayDetails.day.condition.icon}`,
+          }}
+        ></Image> */}
+        <WeatherImage
+          imageUri={`https:${selectedDayDetails.day.condition.icon}`}
         />
       </View>
       <Text style={styles.description}>
