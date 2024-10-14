@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -41,6 +41,7 @@ const SearchedCityList = ({
       </TouchableWithoutFeedback>
     );
   };
+  const keyExtractor = useCallback((item, index) => `${index}`, []);
 
   return (
     <View style={styles.box}>
@@ -49,6 +50,8 @@ const SearchedCityList = ({
         renderItem={({ item, index }) => {
           return CreateListItem(item);
         }}
+        removeClippedSubviews={true}
+        keyExtractor={keyExtractor}
       />
     </View>
   );
