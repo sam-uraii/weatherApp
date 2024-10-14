@@ -15,6 +15,8 @@ export const fetchSearchedCities = () => {
     dispatch(updateIsSearchLoading(true));
     try {
       searchedKeyword = getState().searchedCityReducer.searchedKeyword;
+      console.log("caling API", searchedKeyword);
+
       if (searchedKeyword.length) {
         const response = await axios({
           method: "get",

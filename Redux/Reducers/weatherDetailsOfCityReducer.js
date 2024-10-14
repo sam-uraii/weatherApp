@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   selectedCity: null,
-  weatherDetails: {},
+  weatherDetails: null,
   isWeatherDetailsLoading: false,
   weatherForecastDetails: [],
   isWeatherForecastDetailsLoading: false,

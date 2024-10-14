@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { dateFormatter } from "../../utils";
 import WeatherCondition from "./WeatherConditon";
+import { primaryTextColor } from "../../Constants/Colors";
 
 const CurrentWeatherInfo = ({ weatherDetails }) => {
   return (
@@ -13,7 +14,7 @@ const CurrentWeatherInfo = ({ weatherDetails }) => {
           </Text>
           <Text
             style={{
-              color: "black",
+              color: primaryTextColor,
               fontSize: 20,
             }}
           >
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   currentRegionText: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   description: {
-    color: "black",
+    color: primaryTextColor,
     fontSize: 15,
     textTransform: "capitalize",
   },
@@ -105,14 +106,14 @@ const styles = StyleSheet.create({
     height: 50,
   },
   timezone: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
     fontSize: 15,
   },
   currentDegrees: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   details: {
-    color: "black",
+    color: primaryTextColor,
     fontSize: 15,
     textTransform: "capitalize",
   },

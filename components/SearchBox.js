@@ -21,6 +21,7 @@ const SearchBox = ({
     updateSearchedKeyword(keyword);
     fetchCallback();
   };
+
   const setInputRef = (searchRef) => {
     inputRef = searchRef;
   };

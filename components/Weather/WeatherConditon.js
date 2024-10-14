@@ -1,9 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { primaryTextColor } from "../../Constants/Colors";
 
 const WeatherCondition = ({ weatherDetails }) => {
-  console.log(weatherDetails);
-
   const weatherData = [
     [
       {
@@ -35,9 +34,9 @@ const WeatherCondition = ({ weatherDetails }) => {
   ];
 
   const weatherConditionWrapper = () =>
-    weatherData.map((curr) => {
+    weatherData.map((curr, index) => {
       return (
-        <View style={styles.row}>
+        <View style={styles.row} key={`${index}`}>
           {curr.map((element) => {
             return (
               <View style={styles.detailsBox} key={element.label}>
@@ -50,77 +49,7 @@ const WeatherCondition = ({ weatherDetails }) => {
       );
     });
 
-  return (
-    // <View style={styles.secondaryInfoContainer}>
-    //   <View style={styles.row}>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>Feels</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current &&
-    //           Math.round(weatherDetails.current.feelslike_c)}
-    //         °C
-    //       </Text>
-    //     </View>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>Heat</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current &&
-    //           Math.round(weatherDetails.current.heatindex_c)}
-    //         °C
-    //       </Text>
-    //     </View>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>Pressure</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current &&
-    //           Math.round(weatherDetails.current.pressure_mb)}
-    //         MB
-    //       </Text>
-    //     </View>
-    //   </View>
-    //   <View style={styles.row}>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>{"Wind"}</Text>
-    //       <Text
-    //         style={styles.details}
-    //       >{`${weatherDetails.current.wind_mph}mph`}</Text>
-    //     </View>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>Humidity</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current && weatherDetails.current.humidity}%
-    //       </Text>
-    //     </View>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>{`Cloud     `}</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current && weatherDetails.current.cloud}%
-    //       </Text>
-    //     </View>
-    //   </View>
-    //   <View style={styles.row}>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>UV</Text>
-    //       <Text style={styles.details}>
-    //         {`${weatherDetails.current && weatherDetails.current.uv}       `}
-    //       </Text>
-    //     </View>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>Dew Point</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current && weatherDetails.current.dewpoint_c}%
-    //       </Text>
-    //     </View>
-    //     <View style={styles.detailsBox}>
-    //       <Text style={styles.label}>{`Cloud     `}</Text>
-    //       <Text style={styles.details}>
-    //         {weatherDetails.current && weatherDetails.current.cloud}%
-    //       </Text>
-    //     </View>
-    //   </View>
-    // </View>
-    weatherConditionWrapper()
-  );
+  return weatherConditionWrapper();
 };
 export default WeatherCondition;
 
@@ -139,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   currentRegionText: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
@@ -157,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   description: {
-    color: "black",
+    color: primaryTextColor,
     fontSize: 15,
     textTransform: "capitalize",
   },
@@ -177,14 +106,14 @@ const styles = StyleSheet.create({
     height: 50,
   },
   timezone: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
     fontSize: 15,
   },
   currentDegrees: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
@@ -205,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   details: {
-    color: "black",
+    color: primaryTextColor,
     fontSize: 15,
     textTransform: "capitalize",
   },

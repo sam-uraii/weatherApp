@@ -2,7 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { dateFormatter } from "../../utils";
 import { Icon, Image } from "@rneui/themed";
-import { defaultBackgroundColor } from "../../Constants/Colors";
+import {
+  defaultBackgroundColor,
+  primaryTextColor,
+} from "../../Constants/Colors";
 import WeatherImage from "../AnimatedComponent/WeatherImage";
 export default function TemperatureBox({ selectedDayDetails }) {
   return (
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   dateText: {
-    color: "black",
+    color: primaryTextColor,
     fontSize: 15,
     textTransform: "capitalize",
     marginLeft: 5,
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   description: {
-    color: "black",
+    color: primaryTextColor,
     fontSize: 15,
     textTransform: "capitalize",
     marginLeft: 5,
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   currentDegrees: {
-    color: "black",
+    color: primaryTextColor,
     display: "flex",
     justifyContent: "center",
     marginTop: 10,

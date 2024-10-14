@@ -41,7 +41,7 @@ const WeatherForecastDaysList = ({
             bottomDivider
             containerStyle={{
               backgroundColor:
-                selectedDayIndex === index ? "rgb(65,117,155)" : "#ffffff",
+                selectedDayIndex === index ? "#000000" : "#ffffff",
               borderRadius: 35,
             }}
           >
@@ -52,8 +52,16 @@ const WeatherForecastDaysList = ({
               source={{ uri: `https:${item.day.condition.icon}` }}
             ></Image>
             <ListItem.Content>
-              <ListItem.Title>{`${dateFormatter(item.date)}`}</ListItem.Title>
-              <ListItem.Subtitle>{`${item.day.condition.text}, ${item.day.mintemp_c}/${item.day.maxtemp_c}°C`}</ListItem.Subtitle>
+              <ListItem.Title
+                style={{
+                  color: selectedDayIndex === index ? "#ffffff" : "#000000",
+                }}
+              >{`${dateFormatter(item.date)}`}</ListItem.Title>
+              <ListItem.Subtitle
+                style={{
+                  color: selectedDayIndex === index ? "#ffffff" : "#000000",
+                }}
+              >{`${item.day.condition.text}, ${item.day.mintemp_c}/${item.day.maxtemp_c}°C`}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
         </TouchableOpacity>

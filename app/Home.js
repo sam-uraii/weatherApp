@@ -1,5 +1,12 @@
-import { ActivityIndicator, View, Appearance, StyleSheet } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  View,
+  Appearance,
+  StyleSheet,
+  Text,
+  Image,
+} from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SearchedCityList from "../Components/SearchedCityList";
 import { connect } from "react-redux";
 import { fetchSearchedCities } from "../Redux/Middleware/searchedCityMiddleware";
@@ -16,6 +23,8 @@ import { getWeatherForecastDetailsOfCity } from "../Redux/Middleware/weatherDeta
 import SearchBox from "../Components/SearchBox";
 import CurrentWeatherWrapper from "../Components/Weather/CurrentWeatherWrapper";
 import ForecastListWrapper from "../Components/Weather/ForecastListWrapper";
+import StartupPage from "../Components/StartupPage";
+import { debounce } from "../utils";
 
 const Home = ({
   fetchSearchedCities,
@@ -57,6 +66,7 @@ const Home = ({
       setIsSearchedCityListVisible(true);
     }
   };
+  const debouncedFetch = useCallback(debounce(fetchSearchedCities, 500), []);
 
   return (
     <View style={styles.mainWrapperBox}>
@@ -66,25 +76,30 @@ const Home = ({
         isSearchLoading={isSearchLoading}
         onFocus={onFocus}
         onClearCallBack={clearSearchedCityReducer}
-        fetchCallback={fetchSearchedCities}
+        fetchCallback={debouncedFetch}
       />
 
       {isSearchedCityListVisible && <SearchedCityList />}
 
-      <CurrentWeatherWrapper
-        isWeatherDetailsLoading={isWeatherDetailsLoading}
-        areWeatherDetailsVisible={areWeatherDetailsVisible}
-        weatherDetails={weatherDetails}
-        updateNumberOfDaysForForecast={updateNumberOfDaysForForecast}
-        numberOfDaysForForecast={numberOfDaysForForecast}
-      />
-
-      <ForecastListWrapper
-        isWeatherForecastDetailsLoading={isWeatherForecastDetailsLoading}
-        isWeatherDetailsLoading={isWeatherDetailsLoading}
-        areWeatherDetailsVisible={areWeatherDetailsVisible}
-        weatherForecastDetails={weatherForecastDetails}
-      />
+      {weatherDetails ? (
+        <>
+          <CurrentWeatherWrapper
+            isWeatherDetailsLoading={isWeatherDetailsLoading}
+            areWeatherDetailsVisible={areWeatherDetailsVisible}
+            weatherDetails={weatherDetails}
+            updateNumberOfDaysForForecast={updateNumberOfDaysForForecast}
+            numberOfDaysForForecast={numberOfDaysForForecast}
+          />
+          <ForecastListWrapper
+            isWeatherForecastDetailsLoading={isWeatherForecastDetailsLoading}
+            isWeatherDetailsLoading={isWeatherDetailsLoading}
+            areWeatherDetailsVisible={areWeatherDetailsVisible}
+            weatherForecastDetails={weatherForecastDetails}
+          />
+        </>
+      ) : (
+        <StartupPage />
+      )}
     </View>
   );
 };
