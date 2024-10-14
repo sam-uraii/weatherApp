@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Avatar, ListItem } from "@rneui/themed";
 const HourlyForecastList = ({ hourDetails }) => {
@@ -16,7 +16,15 @@ const HourlyForecastList = ({ hourDetails }) => {
   const itemSeparator = () => (
     <View style={{ width: 5, height: "100%" }}></View>
   );
-
+  const keyExtractor = useCallback((item, index) => `${index}`, []);
+  const getItemLayout = useCallback(
+    (data, index) => ({
+      length: 70,
+      offset: (70 + 10) * index,
+      index,
+    }),
+    []
+  );
   return (
     <View style={styles.box}>
       <View>
@@ -27,6 +35,9 @@ const HourlyForecastList = ({ hourDetails }) => {
           }}
           horizontal={true}
           ItemSeparatorComponent={itemSeparator}
+          removeClippedSubviews={true}
+          keyExtractor={keyExtractor}
+          getItemLayout={getItemLayout}
         ></FlatList>
       </View>
     </View>

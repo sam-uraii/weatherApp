@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import {
   Dimensions,
   FlatList,
@@ -45,10 +45,6 @@ const WeatherForecastDaysList = ({
               borderRadius: 35,
             }}
           >
-            {/* <Avatar
-              rounded
-              source={{ uri: `https:${item.day.condition.icon}` }}
-            /> */}
             <Image
               transition={true}
               transitionDuration={5000}
@@ -67,6 +63,7 @@ const WeatherForecastDaysList = ({
   const itemSeparator = () => (
     <View style={{ width: 5, height: "100%" }}></View>
   );
+  const keyExtractor = useCallback((item, index) => `${index}`, []);
   return (
     <View style={styles.box}>
       <View>
@@ -80,6 +77,8 @@ const WeatherForecastDaysList = ({
           }}
           horizontal={true}
           ItemSeparatorComponent={itemSeparator}
+          removeClippedSubviews={true}
+          keyExtractor={keyExtractor}
         ></FlatList>
       </View>
 
