@@ -7,10 +7,18 @@ export default function DropDown({
   data,
   numberOfDaysForForecast,
 }) {
+  const dropDownWidth = "90%";
   return (
     <SelectList
-      boxStyles={{ margin: 5, backgroundColor: "#fff" }}
-      dropdownStyles={{ backgroundColor: "#fff" }}
+      boxStyles={{
+        margin: 5,
+        backgroundColor: "#fff",
+        width: dropDownWidth,
+      }}
+      dropdownStyles={{
+        backgroundColor: "#fff",
+        // width: dropDownWidth,
+      }}
       setSelected={(val) => {
         updateNumberOfDaysForForecast(val);
       }}

@@ -17,6 +17,7 @@ const CompleteWeatherReport = ({
       resetSelectedDayDetails();
     };
   }, []);
+
   return (
     <View style={styles.mainWrapperBox}>
       <View style={styles.weatherForecastListWrapper}>

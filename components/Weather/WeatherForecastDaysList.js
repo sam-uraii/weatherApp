@@ -88,7 +88,7 @@ const WeatherForecastDaysList = ({
         color="#71797E"
         size={18}
         style={{
-          marginLeft: Dimensions.get("window").width - 35,
+          marginLeft: Dimensions.get("window").width - 55,
           marginTop: 4,
         }}
       />
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     flexDirection: "column",
-    marginTop: 5,
+    marginTop: 15,
   },
 });
 

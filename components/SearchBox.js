@@ -1,27 +1,50 @@
 import { SearchBar } from "@rneui/themed";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { updateSearchedKeyword } from "../Redux/Action/searchedCityAction";
+import { connect } from "react-redux";
 
 const SearchBox = ({
-  updateSearch,
+  shouldBlur,
   searchedKeyword,
   onClearCallBack,
-  setInputRef,
   isSearchLoading,
   onFocus,
+  fetchCallback,
+  updateSearchedKeyword,
 }) => {
+  let inputRef = useRef(null);
+
+  useEffect(() => {
+    shouldBlur && inputRef.blur();
+  }, [shouldBlur]);
+  const updateSearch = async (keyword) => {
+    updateSearchedKeyword(keyword);
+    fetchCallback();
+  };
+  const setInputRef = (searchRef) => {
+    inputRef = searchRef;
+  };
+  const onClear = () => {
+    onClearCallBack();
+    inputRef.focus();
+  };
+
   return (
     <SearchBar
       ref={setInputRef}
-      inputContainerStyle={{ height: 40 }}
+      inputContainerStyle={{ height: 40, backgroundColor: "white" }}
       onFocus={() => onFocus()}
       placeholder="City Name..."
       onChangeText={updateSearch}
       value={searchedKeyword}
       lightTheme={true}
-      onClear={onClearCallBack}
+      onClear={onClear}
       round={true}
       showLoading={isSearchLoading}
     />
   );
 };
-export default SearchBox;
+const mapStateToProps = (state) => ({});
+export default connect(mapStateToProps, {
+  updateSearchedKeyword,
+})(SearchBox);

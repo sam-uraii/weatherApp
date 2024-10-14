@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { dateFormatter } from "../../utils";
+import WeatherCondition from "./WeatherConditon";
 
 const CurrentWeatherInfo = ({ weatherDetails }) => {
   return (
@@ -12,7 +13,7 @@ const CurrentWeatherInfo = ({ weatherDetails }) => {
           </Text>
           <Text
             style={{
-              color: "white",
+              color: "black",
               fontSize: 20,
             }}
           >
@@ -46,55 +47,7 @@ const CurrentWeatherInfo = ({ weatherDetails }) => {
       <Text
         style={styles.timezone}
       >{`${dateFormatter(weatherDetails.location.localtime.split(" ")[0])} - ${weatherDetails.location.localtime.split(" ")[1]}`}</Text>
-
-      <View style={styles.secondaryInfoContainer}>
-        <View style={styles.row}>
-          <View style={styles.detailsBox}>
-            <Text style={styles.label}>Feels</Text>
-            <Text style={styles.details}>
-              {weatherDetails.current &&
-                Math.round(weatherDetails.current.feelslike_c)}
-              °C
-            </Text>
-          </View>
-          <View style={styles.detailsBox}>
-            <Text style={styles.label}>Heat</Text>
-            <Text style={styles.details}>
-              {weatherDetails.current &&
-                Math.round(weatherDetails.current.heatindex_c)}
-              °C
-            </Text>
-          </View>
-          <View style={styles.detailsBox}>
-            <Text style={styles.label}>Pressure</Text>
-            <Text style={styles.details}>
-              {weatherDetails.current &&
-                Math.round(weatherDetails.current.pressure_mb)}
-              MB
-            </Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.detailsBox}>
-            <Text style={styles.label}>Wind</Text>
-            <Text style={styles.details}>
-              {weatherDetails.current && weatherDetails.current.wind_mph} m/s
-            </Text>
-          </View>
-          <View style={styles.detailsBox}>
-            <Text style={styles.label}>Humidity</Text>
-            <Text style={styles.details}>
-              {weatherDetails.current && weatherDetails.current.humidity}%
-            </Text>
-          </View>
-          <View style={styles.detailsBox}>
-            <Text style={styles.label}>{`Cloud     `}</Text>
-            <Text style={styles.details}>
-              {weatherDetails.current && weatherDetails.current.cloud}%
-            </Text>
-          </View>
-        </View>
-      </View>
+      <WeatherCondition weatherDetails={weatherDetails} />
     </View>
   );
 };
@@ -105,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    backgroundColor: "rgb(65,117,155)",
+    backgroundColor: "#E3E3EE",
   },
   regionTempTimeWrapper: {
     flexDirection: "row",
@@ -114,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   currentRegionText: {
-    color: "white",
+    color: "black",
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
@@ -132,7 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   description: {
-    color: "white",
+    color: "black",
     fontSize: 15,
     textTransform: "capitalize",
   },
@@ -152,14 +105,14 @@ const styles = StyleSheet.create({
     height: 50,
   },
   timezone: {
-    color: "white",
+    color: "black",
     display: "flex",
     justifyContent: "center",
     marginTop: 10,
     fontSize: 15,
   },
   currentDegrees: {
-    color: "white",
+    color: "black",
     display: "flex",
     justifyContent: "center",
     marginTop: 10,

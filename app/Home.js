@@ -13,11 +13,12 @@ import DropDown from "../Components/DropDown";
 import { FORECAST_DAYS } from "../Constants/DropdownConstants";
 import { updateNumberOfDaysForForecast } from "../Redux/Action/weatherDetailsOfCityAction";
 import { getWeatherForecastDetailsOfCity } from "../Redux/Middleware/weatherDetailsOfCityMiddleware";
-import { defaultBackgroundColor } from "../Constants/Colors";
 import SearchBox from "../Components/SearchBox";
+import CurrentWeatherWrapper from "../Components/Weather/CurrentWeatherWrapper";
+import ForecastListWrapper from "../Components/Weather/ForecastListWrapper";
+
 const Home = ({
   fetchSearchedCities,
-  updateSearchedKeyword,
   searchedKeyword,
   searchedCities,
   clearSearchedCityReducer,
@@ -35,87 +36,55 @@ const Home = ({
     useState(false);
   const [isSearchedCityListVisible, setIsSearchedCityListVisible] =
     useState(false);
-  let inputRef = useRef(null);
+
   useEffect(() => {
-    if (selectedCity) {
-      getWeatherForecastDetailsOfCity();
-    }
+    if (selectedCity) getWeatherForecastDetailsOfCity();
   }, [numberOfDaysForForecast]);
+
   useEffect(() => {
     if (selectedCity) {
-      inputRef.blur();
       setAreWeatherDetailsVisible(true);
       setIsSearchedCityListVisible(false);
     }
   }, [selectedCity]);
-  useEffect(() => {
-    if (searchedCities.length) {
-      setIsSearchedCityListVisible(true);
-    } else {
-      setIsSearchedCityListVisible(false);
-    }
-  }, [searchedCities]);
 
-  const updateSearch = async (keyword) => {
-    updateSearchedKeyword(keyword);
-    fetchSearchedCities();
-  };
+  useEffect(() => {
+    setIsSearchedCityListVisible(searchedCities.length > 0);
+  }, [searchedCities]);
 
   const onFocus = () => {
     if (searchedCities.length) {
       setIsSearchedCityListVisible(true);
     }
   };
-  const onClearCallBack = () => {
-    clearSearchedCityReducer();
-    inputRef.focus();
-  };
-  const setInputRef = (searchRef) => {
-    inputRef = searchRef;
-  };
+
   return (
     <View style={styles.mainWrapperBox}>
       <SearchBox
-        updateSearch={updateSearch}
+        shouldBlur={selectedCity}
         searchedKeyword={searchedKeyword}
         isSearchLoading={isSearchLoading}
-        setInputRef={setInputRef}
         onFocus={onFocus}
-        onClearCallBack={onClearCallBack}
+        onClearCallBack={clearSearchedCityReducer}
+        fetchCallback={fetchSearchedCities}
       />
 
       {isSearchedCityListVisible && <SearchedCityList />}
-      {isWeatherDetailsLoading ? (
-        <ActivityIndicator
-          size={35}
-          color={Appearance.getColorScheme() === "dark" ? "white" : "black"}
-        />
-      ) : (
-        areWeatherDetailsVisible && (
-          <>
-            <CurrentWeatherInfo weatherDetails={weatherDetails} />
-            <DropDown
-              updateNumberOfDaysForForecast={updateNumberOfDaysForForecast}
-              data={FORECAST_DAYS}
-              numberOfDaysForForecast={numberOfDaysForForecast}
-            />
-          </>
-        )
-      )}
 
-      {isWeatherForecastDetailsLoading ? (
-        <ActivityIndicator
-          size={35}
-          style={{ top: isWeatherDetailsLoading ? 250 : 0 }}
-          color={Appearance.getColorScheme() === "dark" ? "white" : "black"}
-        />
-      ) : (
-        areWeatherDetailsVisible && (
-          <WeatherForecastDaysList
-            weatherForecastDetails={weatherForecastDetails}
-          />
-        )
-      )}
+      <CurrentWeatherWrapper
+        isWeatherDetailsLoading={isWeatherDetailsLoading}
+        areWeatherDetailsVisible={areWeatherDetailsVisible}
+        weatherDetails={weatherDetails}
+        updateNumberOfDaysForForecast={updateNumberOfDaysForForecast}
+        numberOfDaysForForecast={numberOfDaysForForecast}
+      />
+
+      <ForecastListWrapper
+        isWeatherForecastDetailsLoading={isWeatherForecastDetailsLoading}
+        isWeatherDetailsLoading={isWeatherDetailsLoading}
+        areWeatherDetailsVisible={areWeatherDetailsVisible}
+        weatherForecastDetails={weatherForecastDetails}
+      />
     </View>
   );
 };
@@ -146,7 +115,8 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   mainWrapperBox: {
-    backgroundColor: defaultBackgroundColor,
+    backgroundColor: "#E3E3EE",
     flex: 1,
+    padding: 15,
   },
 });

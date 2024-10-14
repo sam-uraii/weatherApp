@@ -44,13 +44,12 @@ const SearchedCityList = ({
 
   return (
     <View style={styles.box}>
-      {}
       <FlatList
         data={searchedCities}
         renderItem={({ item, index }) => {
           return CreateListItem(item);
         }}
-      ></FlatList>
+      />
     </View>
   );
 };
@@ -59,11 +58,10 @@ const styles = StyleSheet.create({
   box: {
     height: "70%",
     width: "100%",
-    borderWidth: 2,
-    borderColor: "black",
     position: "absolute",
     zIndex: 11111,
-    marginTop: 50,
+    marginTop: 68,
+    marginLeft: 20,
   },
 });
 
